@@ -209,7 +209,7 @@ namespace LuaInterface
                         int tmp = pos + 1;
                         sb.Append("\n\tno file '").Append(fileName, tmp, fileName.Length - tmp).Append(".lua' in ").Append("lua_");
                         tmp = sb.Length;
-                        sb.Append(fileName, 0, pos).Replace('/', '_', tmp, pos).Append(".unity3d");
+                        sb.Append(fileName, 0, pos).Replace('/', LuaConst.PathSeparator, tmp, pos).Append(".unity3d");
                     }
                     else
                     {                        
@@ -235,8 +235,7 @@ namespace LuaInterface
 
                 if (pos > 0)
                 {
-                    sb.Append("_");                    
-                    sb.Append(fileName, 0, pos).ToLower().Replace('/', '_');                                        
+                    sb.Append(fileName, 0, pos).ToLower().Replace('/', LuaConst.PathSeparator);                                        
                     fileName = fileName.Substring(pos + 1);
                 }
 
