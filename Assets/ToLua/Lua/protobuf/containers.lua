@@ -19,6 +19,7 @@ local setmetatable = setmetatable
 local table = table
 local rawset = rawset
 local error = error
++local ipairs = ipairs
 
 module "protobuf.containers"
 
@@ -40,6 +41,12 @@ local _RCFC_meta = {
     end,
     __newindex = function(self, key, value)
         error("RepeatedCompositeFieldContainer Can't set value directly")
+    end,
+    MergeFrom = function(self, msg)
+        for _, v in ipairs(msg) do
+            local i = self:add()
+            i:MergeFrom(v)
+        end
     end
 }
 _RCFC_meta.__index = _RCFC_meta
@@ -64,6 +71,11 @@ local _RSFC_meta = {
     end,
     __newindex = function(self, key, value)
         error("RepeatedCompositeFieldContainer Can't set value directly")
+    end,
+    MergeFrom = function(self, msg)
+        for _, v in ipairs(msg) do
+            self:append(v)
+        end
     end
 }
 _RSFC_meta.__index = _RSFC_meta
