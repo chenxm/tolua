@@ -46,7 +46,13 @@ local _RCFC_meta = {
         for _, v in ipairs(msg) do
             local i = self:add()
             i:MergeFrom(v)
+    end,
+    Plain = function(self)
+        local t = {}
+        for i, v in ipairs(self) do
+            t[i] = v:Plain()
         end
+        return t
     end
 }
 _RCFC_meta.__index = _RCFC_meta
@@ -76,6 +82,13 @@ local _RSFC_meta = {
         for _, v in ipairs(msg) do
             self:append(v)
         end
+    end,
+    Plain = function(self)
+        local t = {}
+        for i, v in ipairs(self) do
+            t[i] = v
+        end
+        return t
     end
 }
 _RSFC_meta.__index = _RSFC_meta

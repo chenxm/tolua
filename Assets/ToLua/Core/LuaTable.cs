@@ -260,7 +260,7 @@ namespace LuaInterface
 #endif
                 return func;
             }
-            catch(Exception e)            
+            catch(Exception e)
             {
                 luaState.LuaSetTop(top);
                 throw e;
@@ -689,6 +689,25 @@ namespace LuaInterface
                 throw e;
             }
         }
+
+        public void AddTable(int index)
+        {
+            int oldTop = luaState.LuaGetTop();
+
+            try
+            {
+                luaState.Push(this);
+                luaState.LuaCreateTable();
+                luaState.LuaRawSetI(oldTop + 1, index);
+                luaState.LuaSetTop(oldTop);
+            }
+            catch (Exception e)
+            {
+                luaState.LuaSetTop(oldTop);
+                throw e;
+            }
+        }
+
 
         public object[] ToArray()
         {

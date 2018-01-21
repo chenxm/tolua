@@ -52,7 +52,7 @@ local function _SimpleDecoder(wire_type, decode_value)
                 endpoint, pos = DecodeVarint(buffer, pos)
                 endpoint = endpoint + pos
                 if endpoint > pend then
-                    error('Truncated message.')
+                    error('Truncated message.' .. key.full_name)
                 end
                 local element
                 while pos < endpoint do
@@ -81,7 +81,7 @@ local function _SimpleDecoder(wire_type, decode_value)
                     pos = new_pos + tag_len
                     if sub(buffer, new_pos+1, pos) ~= tag_bytes or new_pos >= pend then
                         if new_pos > pend then
-                            error('Truncated message.')
+                            error('Truncated message.' .. key.full_name)
                         end
                         return new_pos
                     end
@@ -92,7 +92,7 @@ local function _SimpleDecoder(wire_type, decode_value)
                 field_dict[key], pos = decode_value(buffer, pos)
                 if pos > pend then
                     field_dict[key] = nil
-                    error('Truncated message.')
+                    error('Truncated message.' .. key.full_name)
                 end
                 return pos
             end
@@ -164,7 +164,7 @@ function StringDecoder(field_number, is_repeated, is_packed, key, new_default)
                 size, pos = DecodeVarint(buffer, pos)
                 new_pos = pos + size
                 if new_pos > pend then
-                    error('Truncated string.')
+                    error('Truncated string.' .. key.full_name)
                 end
                 value:append(sub(buffer, pos+1, new_pos))
                 pos = new_pos + tag_len
@@ -179,7 +179,7 @@ function StringDecoder(field_number, is_repeated, is_packed, key, new_default)
             size, pos = DecodeVarint(buffer, pos)
             new_pos = pos + size
             if new_pos > pend then
-                error('Truncated string.')
+                error('Truncated string.' .. key.full_name)
             end
             field_dict[key] = sub(buffer, pos + 1, new_pos)
             return new_pos
@@ -205,7 +205,7 @@ function BytesDecoder(field_number, is_repeated, is_packed, key, new_default)
                 size, pos = DecodeVarint(buffer, pos)
                 new_pos = pos + size
                 if new_pos > pend then
-                    error('Truncated string.')
+                    error('Truncated string.' .. key.full_name)
                 end
                 value:append(sub(buffer, pos + 1, new_pos))
                 pos = new_pos + tag_len
@@ -220,7 +220,7 @@ function BytesDecoder(field_number, is_repeated, is_packed, key, new_default)
             size, pos = DecodeVarint(buffer, pos)
             new_pos = pos + size
             if new_pos > pend then
-                error('Truncated string.')
+                error('Truncated string.' .. key.full_name)
             end
             field_dict[key] = sub(buffer, pos + 1, new_pos)
             return new_pos
@@ -247,7 +247,7 @@ function MessageDecoder(field_number, is_repeated, is_packed, key, new_default)
                 size, pos = DecodeVarint(buffer, pos)
                 new_pos = pos + size
                 if new_pos > pend then
-                    error('Truncated message.')
+                    error('Truncated message.' .. key.full_name)
                 end
                 if value:add():_InternalParse(buffer, pos, new_pos) ~= new_pos then
                     error('Unexpected end-group tag.')
@@ -269,7 +269,7 @@ function MessageDecoder(field_number, is_repeated, is_packed, key, new_default)
             size, pos = DecodeVarint(buffer, pos)
             new_pos = pos + size
             if new_pos > pend then
-                error('Truncated message.')
+                error('Truncated message.' .. key.full_name)
             end
             if value:_InternalParse(buffer, pos, new_pos) ~= new_pos then
                 error('Unexpected end-group tag.')
@@ -288,7 +288,7 @@ end
 function _SkipFixed64(buffer, pos, pend)
     pos = pos + 8
     if pos > pend then 
-        error('Truncated message.')
+        error('Truncated message._SkipFixed64')
     end
     return pos
 end
@@ -298,7 +298,7 @@ function _SkipLengthDelimited(buffer, pos, pend)
     size, pos = _DecodeVarint(buffer, pos)
     pos = pos + size
     if pos > pend then
-        error('Truncated message.')
+        error('Truncated message.[_SkipLengthDelimited]')
     end
     return pos
 end
@@ -306,7 +306,7 @@ end
 function _SkipFixed32(buffer, pos, pend)
     pos = pos + 4
     if pos > pend then
-        error('Truncated message.')
+        error('Truncated message.[_SkipFixed32]')
     end
     return pos
 end

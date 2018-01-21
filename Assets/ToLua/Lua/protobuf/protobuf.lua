@@ -842,6 +842,38 @@ local function _AddMergeFromMethod(message_meta)
             end
         end
     end
+
+    local fieldTypeName = {
+        [FieldDescriptor.TYPE_DOUBLE] = "DOUBLE",
+        [FieldDescriptor.TYPE_FLOAT] = "FLOAT",
+        [FieldDescriptor.TYPE_INT64] = "INT64",
+        [FieldDescriptor.TYPE_UINT64] = "UINT64",
+        [FieldDescriptor.TYPE_INT32] = "INT32",
+        [FieldDescriptor.TYPE_FIXED64] = "FIXED64",
+        [FieldDescriptor.TYPE_FIXED32] = "FIXED32",
+        [FieldDescriptor.TYPE_BOOL] = "BOOL",
+        [FieldDescriptor.TYPE_STRING] = "STRING",
+        [FieldDescriptor.TYPE_GROUP] = "GROUP",
+        [FieldDescriptor.TYPE_MESSAGE] = "MESSAGE",
+        [FieldDescriptor.TYPE_BYTES] = "BYTES",
+        [FieldDescriptor.TYPE_UINT32] = "UINT32",
+        [FieldDescriptor.TYPE_ENUM] = "ENUM",
+        [FieldDescriptor.TYPE_SFIXED32] = "SFIXED32",
+        [FieldDescriptor.TYPE_SFIXED64] = "SFIXED64",
+        [FieldDescriptor.TYPE_SINT32] = "SINT32",
+        [FieldDescriptor.TYPE_SINT64] = "SINT64",
+    }
+    message_meta._member.Plain = function (self)
+        local t = {}
+        for field, value in pairs(self._fields) do
+            if field.label == LABEL_REPEATED or field.cpp_type == CPPTYPE_MESSAGE then
+                t[field.name .. "#".. fieldTypeName[field.type]] = value:Plain()
+            else
+                t[field.name .. "#".. fieldTypeName[field.type]] = value
+            end
+        end
+        return t
+    end
 end
 
 local function _AddMessageMethods(message_descriptor, message_meta)
