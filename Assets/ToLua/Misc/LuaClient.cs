@@ -200,7 +200,7 @@ public class LuaClient : MonoBehaviour
     }
 
 #if UNITY_5_4_OR_NEWER
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	protected void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         OnLevelLoaded(scene.buildIndex);
     }
