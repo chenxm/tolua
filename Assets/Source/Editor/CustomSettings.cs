@@ -157,8 +157,6 @@ public static class CustomSettings
 		_GT(typeof(WaitWhile)),
 		_GT(typeof(LuaCoroutineQueue)),
 
-		_GT(typeof(LuaResourceLibrary)),
-		_GT(typeof(LuaResourceManager)),
 	};
 
     public static List<Type> dynamicList = new List<Type>()
