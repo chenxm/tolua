@@ -9,7 +9,7 @@ using System.Reflection;
 
 public static class CustomSettings
 {
-    public static string saveDir = Application.dataPath + "/Zygote/Source/Generate/";    
+    public static string saveDir = Application.dataPath + "/Source/Generate/";    
     public static string toluaBaseType = Application.dataPath + "/ToLua/BaseType/";    
 
     //导出时强制做为静态类的类型(注意customTypeList 还要添加这个类型才能导出)
