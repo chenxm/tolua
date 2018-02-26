@@ -155,7 +155,7 @@ public class LuaClient : MonoBehaviour
         DelegateFactory.Init();   
         //LuaCoroutine.Register(luaState, this);        
 
-		luaState["GlobalMonobehaviour"] = LuaClient.Instance;
+		luaState["GlobalBehaviour"] = LuaClient.Instance;
 	}
 
 
