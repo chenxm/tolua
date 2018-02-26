@@ -6,6 +6,7 @@ using UnityEditor;
 
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
+using System.IO;
 
 public static class CustomSettings
 {
@@ -146,6 +147,7 @@ public static class CustomSettings
         _GT(typeof(RenderTexture)),
         _GT(typeof(Resources)),     
         _GT(typeof(LuaProfiler)),
+		_GT(typeof(PrimitiveType)),
 
 		_GT(typeof(WaitForEndOfFrame)),
 		_GT(typeof(WaitForFixedUpdate)),
@@ -154,6 +156,9 @@ public static class CustomSettings
 		_GT(typeof(WaitUntil)),
 		_GT(typeof(WaitWhile)),
 		_GT(typeof(LuaCoroutineQueue)),
+
+		_GT(typeof(LuaResourceLibrary)),
+		_GT(typeof(LuaResourceManager)),
 	};
 
     public static List<Type> dynamicList = new List<Type>()
@@ -261,4 +266,69 @@ public static class CustomSettings
 
         LuaClient.Instance.DetachProfiler();
     }
+
+	[MenuItem("Lua/Copy Lua  files to Distribute", false, 200)]
+	public static void CopyLuaFilesToDistribute()
+	{
+		string urlFile = Application.dataPath + @"\Source\DistributePath";
+		if(!File.Exists(urlFile))
+		{
+			Debug.LogError("Please add Assets/Source/DistributePath file.");
+			return;
+		}
+		string destDir = File.ReadAllText(urlFile);
+		if(string.IsNullOrEmpty(destDir) || !Directory.Exists(destDir))
+		{
+			Debug.LogError("Please set DistributePath.");
+			return;
+		}
+		ClearAllLuaFiles(destDir);
+		CopyLuaBytesFiles(LuaConst.luaDir, destDir, false);
+		CopyLuaBytesFiles(LuaConst.toluaDir, destDir, false);
+
+		string arguments = @"\.lua$ " + destDir;
+		string exePath = Application.dataPath + @"\..\tools\MakeManifest.exe";
+		System.Diagnostics.Process proc = System.Diagnostics.Process.Start(exePath, arguments);
+		proc.WaitForExit();
+
+		Debug.Log("Copy lua files over");
+	}
+
+	static void ClearAllLuaFiles(string destDir)
+	{
+		string path = destDir;
+
+		if (Directory.Exists(path))
+		{
+			Directory.Delete(path, true);
+		}
+
+	}
+
+	static void CopyLuaBytesFiles(string sourceDir, string destDir, bool appendext = false, string searchPattern = "*.lua", SearchOption option = SearchOption.AllDirectories)
+	{
+		if (!Directory.Exists(sourceDir))
+		{
+			return;
+		}
+
+		string[] files = Directory.GetFiles(sourceDir, searchPattern, option);
+		int len = sourceDir.Length;
+
+		if (sourceDir[len - 1] == '/' || sourceDir[len - 1] == '\\')
+		{
+			--len;
+		}
+
+		for (int i = 0; i < files.Length; i++)
+		{
+			string str = files[i].Remove(0, len);
+			string dest = destDir + "/" + str;
+			if (appendext) dest += ".bytes";
+			string dir = Path.GetDirectoryName(dest);
+			Directory.CreateDirectory(dir);
+			File.Copy(files[i], dest, true);
+		}
+	}
+
 }

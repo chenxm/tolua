@@ -140,4 +140,12 @@ public class LuaResLoader : LuaFileUtils
 
         return null;
     }
+
+	public void PrintSearchPath()
+	{
+		for(int i = 0; i < this.searchPaths.Count; i++)
+		{
+			Debug.Log("Search lua: " + this.searchPaths[i]);
+		}
+	}
 }
