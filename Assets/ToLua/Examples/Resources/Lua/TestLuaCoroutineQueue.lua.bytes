@@ -1,0 +1,17 @@
+
+function TestCortinue()
+	print("+++++++++++++++++++++++++++++++++++")
+	local i = 0
+	local l = LuaCoroutineQueue.New()
+	local a = UnityEngine.WaitForSeconds.New(1)
+	print(a)
+	l:Join(function () print("---------------------------" .. i);i = i + 1; end)
+	l:Join(a)
+	l:Join(function () print("###########################" .. i);i = i + 1; end)
+	print(GlobalBehaviour)
+	l:Start(GlobalBehaviour)
+	l:Start(GlobalBehaviour)
+	l:Start(GlobalBehaviour)
+	l:Start(GlobalBehaviour)
+end
+

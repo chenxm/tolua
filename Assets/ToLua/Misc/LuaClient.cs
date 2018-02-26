@@ -153,10 +153,13 @@ public class LuaClient : MonoBehaviour
     {        
         LuaBinder.Bind(luaState);
         DelegateFactory.Init();   
-        LuaCoroutine.Register(luaState, this);        
-    }
+        //LuaCoroutine.Register(luaState, this);        
 
-    protected void Init()
+		luaState["GlobalMonobehaviour"] = LuaClient.Instance;
+	}
+
+
+	protected void Init()
     {        
         InitLoader();
         luaState = new LuaState();

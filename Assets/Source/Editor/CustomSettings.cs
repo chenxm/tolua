@@ -146,7 +146,15 @@ public static class CustomSettings
         _GT(typeof(RenderTexture)),
         _GT(typeof(Resources)),     
         _GT(typeof(LuaProfiler)),
-    };
+
+		_GT(typeof(WaitForEndOfFrame)),
+		_GT(typeof(WaitForFixedUpdate)),
+		_GT(typeof(WaitForSeconds)),
+		_GT(typeof(WaitForSecondsRealtime)),
+		_GT(typeof(WaitUntil)),
+		_GT(typeof(WaitWhile)),
+		_GT(typeof(LuaCoroutineQueue)),
+	};
 
     public static List<Type> dynamicList = new List<Type>()
     {
