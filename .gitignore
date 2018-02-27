@@ -26,6 +26,6 @@ sysinfo.txt
 /UnityVS.tolua.CSharp.Editor.csproj
 /UnityVS.tolua.sln
 
-/.vs
-/.idea
+/.vs/
+.idea/
 /*.iml
