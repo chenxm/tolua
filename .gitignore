@@ -29,3 +29,8 @@ sysinfo.txt
 /.vs/
 .idea/
 /*.iml
+
+/Assets/App/
+/Assets/App.meta
+/Assets/AppData/
+/Assets/AppData.meta
