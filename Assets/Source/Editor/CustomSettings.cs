@@ -149,6 +149,37 @@ public static class CustomSettings
         _GT(typeof(LuaProfiler)),
 		_GT(typeof(PrimitiveType)),
 
+		_GT(typeof(Sprite)),
+
+
+		// UnityEvent
+		_GT(typeof(UnityEngine.Events.UnityEvent)),
+		_GT(typeof(UnityEngine.Events.UnityEventBase)),
+		_GT(typeof(UnityEngine.Events.UnityEvent<bool>)),
+		_GT(typeof(UnityEngine.Events.UnityEvent<UnityEngine.Object>)),
+		_GT(typeof(UnityEngine.Events.UnityEvent<string>)),
+
+		//UI
+		_GT(typeof(UnityEngine.RectTransform)),
+		_GT(typeof(UnityEngine.UI.Button)),
+		_GT(typeof(UnityEngine.UI.Button.ButtonClickedEvent)),
+		_GT(typeof(UnityEngine.UI.Dropdown)),
+		_GT(typeof(UnityEngine.UI.Dropdown.DropdownEvent)),
+		_GT(typeof(UnityEngine.UI.Graphic)),
+		_GT(typeof(UnityEngine.UI.Image)),
+		_GT(typeof(UnityEngine.UI.InputField)),
+		_GT(typeof(UnityEngine.UI.InputField.SubmitEvent)),
+		_GT(typeof(UnityEngine.UI.InputField.OnChangeEvent)),
+		_GT(typeof(UnityEngine.UI.Text)),
+		_GT(typeof(UnityEngine.UI.Toggle)),
+		_GT(typeof(UnityEngine.UI.Toggle.ToggleEvent)),
+		_GT(typeof(UnityEngine.UI.ToggleGroup)),
+		_GT(typeof(UnityEngine.UI.Slider)),
+		_GT(typeof(UnityEngine.UI.Slider.SliderEvent)),
+		
+
+		//Coroutine
+		_GT(typeof(CustomYieldInstruction)),
 		_GT(typeof(WaitForEndOfFrame)),
 		_GT(typeof(WaitForFixedUpdate)),
 		_GT(typeof(WaitForSeconds)),
@@ -157,6 +188,19 @@ public static class CustomSettings
 		_GT(typeof(WaitWhile)),
 		_GT(typeof(LuaCoroutineQueue)),
 
+		_GT(typeof(LuaResourceLibrary)),
+		_GT(typeof(LuaResourceManager)),
+
+		//for LeanTween
+		_GT(typeof(LeanTween)),
+		_GT(typeof(LTDescr)),
+		_GT(typeof(LTDescrOptional)),
+		_GT(typeof(LTRect)),
+		_GT(typeof(LTGUI)),
+		_GT(typeof(LTEvent)),
+		_GT(typeof(LTBezier)),
+		_GT(typeof(LTBezierPath)),
+		_GT(typeof(LTSpline)),
 	};
 
     public static List<Type> dynamicList = new List<Type>()
